@@ -1,1 +1,18 @@
 GET http://localhost:5000/footballTeams
+
+###
+
+POST http://localhost:5000/footballScores/new
+Content-Type: application/json
+
+{
+    "team": "England",
+    "gamesPlayed": 1,
+    "wins": 1,
+    "draw": 1,
+    "loss": 1,
+    "goalsFor": 1,
+    "goalsAgainst": 1,
+    "points": 1,
+    "year": 1
+}

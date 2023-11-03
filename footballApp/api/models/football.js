@@ -33,6 +33,10 @@ const footballSchema = new Schema({
     points: {
         type: Number,
         required: true
+    },
+    year: {
+        type: Number,
+        required: true
     }
 });
 
