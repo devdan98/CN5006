@@ -2,7 +2,7 @@ GET http://localhost:5000/footballTeams
 
 ###
 
-POST http://localhost:5000/footballScores/new
+POST http://localhost:5000/footballCollection/new
 Content-Type: application/json
 
 {
@@ -16,3 +16,7 @@ Content-Type: application/json
     "points": 1,
     "year": 1
 }
+
+###
+
+DELETE http://localhost:5000/footballCollection/delete/65451a99c06033b4e768a0ae

@@ -20,8 +20,8 @@ app.get('/footballTeams', async (req, res) => {
 });
 
 // If we ever wanted to add another team to the DB
-app.post('/footballScores/new', async (req, res) => {
-    const footballScores = new football({
+app.post('/footballCollection/new', async (req, res) => {
+    const footballCollection = new football({
         team: req.body.team,
         gamesPlayed: req.body.gamesPlayed,
         wins: req.body.wins,
@@ -33,10 +33,17 @@ app.post('/footballScores/new', async (req, res) => {
         year: req.body.year
     });
 
-    footballScores.save();
+    footballCollection.save();
 
-    res.json(footballScores);
+    res.json(footballCollection);
     
-})
+});
+
+// Deleting teams by id number
+app.delete('/footballCollection/delete/:id', async (req, res) => {
+    const result = await football.findByIdAndDelete(req.params.id);
+
+    res.json(result);
+});
 
 app.listen(5000, () => console.log("Server started on port 5000"));

@@ -8,7 +8,8 @@ const footballSchema = new Schema({
     },
     gamesPlayed: {
         type: Number,
-        required: true
+        required: false,
+        default: 0
     },
     wins: {
         type: Number,
