@@ -38,7 +38,9 @@ const createFootballTeam = async (req, res) => {
 }
 
 // DELETE a team
-
+const deleteFootballTeam = async (req, res) => {
+    const { id } = req.params;
+}
 
 // UPDATE a team
 
