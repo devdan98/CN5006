@@ -4,14 +4,9 @@ require('dotenv').config();
 const express = require('express');
 const footballRoutes = require('./routes/footballTeams');
 const mongoose = require('mongoose');
-// const cors = require('cors');
 
 // Our express app
 const app = express();
-
-// app.use(cors());
-
-
 
 // Middleware (code executing between us getting a request and us sending a response)
 app.use(express.json());
