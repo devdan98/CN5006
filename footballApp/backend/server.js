@@ -22,8 +22,8 @@ app.use((req, res, next) => {
 });
 //New hello
 
-// Routes
-app.use('/api/football', footballRoutes);
+// Routes - To see all the teams visit localhost:5000/teams
+app.use('/teams', footballRoutes);
 
 // Connect to the DB
 mongoose.connect(process.env.MONGO_URI)

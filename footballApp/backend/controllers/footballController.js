@@ -1,8 +1,9 @@
-const footballTeam = require('../models/footballModel')
+const footballTeamModel = require('../models/footballModel');
+const mongoose = require('mongoose');
 
 // GET all teams
 const getFootballTeams = async (req, res) => {
-    const footballTeams = await footballTeam.find({}).sort({team: -1});
+    const footballTeams = await footballTeamModel.find({}).sort({team: -1});
 
     res.status(200).json(footballTeams);
 }
@@ -11,13 +12,17 @@ const getFootballTeams = async (req, res) => {
 const getFootballTeam = async (req, res) => {
     const { id } = req.params;
 
-    const footballTeam = await footballTeam.findById(id);
-
-    if (!footballTeam) {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({error: 'Team does not exist'})
     }
 
-    res.status(200).json(footballTeam);
+    const footballTeamById = await footballTeamModel.findById(id);
+
+    if (!footballTeamById) {
+        return res.status(404).json({error: 'Team does not exist'})
+    }
+
+    res.status(200).json(footballTeamById);
 }
 
 // POST new team
@@ -28,7 +33,7 @@ const createFootballTeam = async (req, res) => {
 
     // Adding the entry to database
     try {
-        const football = await footballTeam.create({
+        const football = await footballTeamModel.create({
             team, gamesPlayed, wins, draw, loss, goalsFor, goalsAgainst, points, year
         })
         res.status(200).json(football);
@@ -41,7 +46,11 @@ const createFootballTeam = async (req, res) => {
 const deleteFootballTeam = async (req, res) => {
     const { id } = req.params;
 
-    const footballTeam = await footballTeam.deleteById(id);
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({error: 'Team does not exist'})
+    }
+
+    const footballTeam = await footballTeamModel.findOneAndDelete({_id: id});
 
     if (!footballTeam) {
         return res.status(404).json({error: 'Team does not exist'})
@@ -51,11 +60,29 @@ const deleteFootballTeam = async (req, res) => {
 }
 
 // UPDATE a team
+const updateFootballTeam = async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({error: 'Team does not exist'})
+    }
+
+    const footballTeam = await footballTeamModel.findOneAndUpdate({_id: id}, {
+        ...req.body
+    })
+
+    if (!footballTeam) {
+        return res.status(404).json({error: 'Team does not exist'})
+    }
+
+    res.status(200).json(footballTeam);
+}
 
 
 module.exports = {
     createFootballTeam,
     getFootballTeams,
     getFootballTeam,
-    deleteFootballTeam
+    deleteFootballTeam,
+    updateFootballTeam
 }

@@ -3,7 +3,8 @@ const {
     createFootballTeam,
     getFootballTeams,
     getFootballTeam,
-    deleteFootballTeam
+    deleteFootballTeam,
+    updateFootballTeam
 } = require('../controllers/footballController')
 
 const router = express.Router();
@@ -21,8 +22,6 @@ router.post('/', createFootballTeam);
 router.delete('/:id', deleteFootballTeam);
 
 // UPDATE a team
-router.patch('/:id', (req, res) => {
-    res.json({mssg: 'UPDATE a team'})
-})
+router.patch('/:id', updateFootballTeam);
 
 module.exports = router;
