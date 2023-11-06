@@ -40,6 +40,14 @@ const createFootballTeam = async (req, res) => {
 // DELETE a team
 const deleteFootballTeam = async (req, res) => {
     const { id } = req.params;
+
+    const footballTeam = await footballTeam.deleteById(id);
+
+    if (!footballTeam) {
+        return res.status(404).json({error: 'Team does not exist'})
+    }
+
+    res.status(200).json(footballTeam);
 }
 
 // UPDATE a team
@@ -48,5 +56,6 @@ const deleteFootballTeam = async (req, res) => {
 module.exports = {
     createFootballTeam,
     getFootballTeams,
-    getFootballTeam
+    getFootballTeam,
+    deleteFootballTeam
 }

@@ -2,7 +2,8 @@ const express = require('express');
 const {
     createFootballTeam,
     getFootballTeams,
-    getFootballTeam
+    getFootballTeam,
+    deleteFootballTeam
 } = require('../controllers/footballController')
 
 const router = express.Router();
@@ -17,9 +18,7 @@ router.get('/:id', getFootballTeam);
 router.post('/', createFootballTeam);
 
 // DELETE a team
-router.delete('/:id', (req, res) => {
-    res.json({mssg: 'DELETE a team'})
-})
+router.delete('/:id', deleteFootballTeam);
 
 // UPDATE a team
 router.patch('/:id', (req, res) => {

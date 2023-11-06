@@ -1,4 +1,4 @@
-Team,gamesPlayed,wins,draw,loss,goalsFor,goalsAgainst,points,year
+team,gamesPlayed,wins,draw,loss,goalsFor,goalsAgainst,points,year
 Argentina,4,1,1,2,6,9,4,2022
 Australia,3,0,1,2,2,5,1,2022
 Belgium,7,6,0,1,16,6,18,2022
