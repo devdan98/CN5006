@@ -14,7 +14,7 @@ const Home = () => {
         }
      }
 
-     fetchFootballTeams()
+    fetchFootballTeams()
     }, [])
     return(
         <div className="Home"> 
