@@ -8,6 +8,7 @@ const getFootballTeams = async (req, res) => {
     res.status(200).json(footballTeams);
 }
 
+
 // GET a single team
 const getFootballTeam = async (req, res) => {
     const { id } = req.params;
@@ -30,6 +31,39 @@ const createFootballTeam = async (req, res) => {
     const {
         team, gamesPlayed, wins, draw, loss, goalsFor, goalsAgainst, points, year
     } = req.body;
+
+    let emptyFields = []
+
+    if (!team) {
+      emptyFields.push('team')
+    }
+    if (!gamesPlayed) {
+      emptyFields.push('gamesPlayed')
+    }
+    if (!wins) {
+      emptyFields.push('wins')
+    }
+    if (!draw) {
+        emptyFields.push('draw')
+      }
+    if (!loss) {
+        emptyFields.push('loss')
+      }
+      if (!goalsFor) {
+        emptyFields.push('goalsFor')
+      }
+      if (!goalsAgainst) {
+        emptyFields.push('goalsAgainst')
+      }
+      if (!points) {
+        emptyFields.push('points')
+      }
+      if (!year) {
+        emptyFields.push('year')
+      }
+    if (emptyFields.length > 0) {
+      return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
+    }
 
     // Adding the entry to database
     try {

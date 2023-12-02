@@ -24,7 +24,7 @@ const TeamDetails = ({ team }) => {
             <p><strong>Goals Against: </strong>{team.goalsAgainst}</p>
             <p><strong>Points: </strong>{team.points}</p>
             <p><strong>Year: </strong>{team.year}</p>
-            <span onClick={handleClick}>Delete</span>
+            <span className="material-symbols-outlined" onClick={handleClick}>Delete</span>
         </div>
     )
 }

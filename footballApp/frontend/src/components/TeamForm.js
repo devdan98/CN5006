@@ -14,6 +14,7 @@ const TeamForm = () => {
     const [points, setPoints] = useState('')
     const [year, setYear] = useState('')
     const [error, setError] = useState('null')
+    const [emptyFields, setEmptyFeilds] = useState([])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -31,6 +32,7 @@ const TeamForm = () => {
 
         if (!response.ok) {
             setError(json.error)
+            setEmptyFeilds(json.emptyFields)
         }
         if (response.ok) {
             setTeam('')
@@ -43,6 +45,7 @@ const TeamForm = () => {
             setPoints('')
             setYear('')
             setError(null)
+            setEmptyFeilds([])
             console.log('New team added', json)
             dispatch({type:'CREATE_TEAMS', payload:json})
         }
@@ -57,6 +60,7 @@ const TeamForm = () => {
                 type="text"
                 onChange={(e) => setTeam(e.target.value)}
                 value={team}
+                className={emptyFields.includes('Team Name')? 'error' : ''}
             />
 
             <label>Games Played:</label>
@@ -64,6 +68,7 @@ const TeamForm = () => {
                 type="number"
                 onChange={(e) => setGamesPlayed(e.target.value)}
                 value={gamesPlayed}
+                className={emptyFields.includes('Games Played')? 'error' : ''}
             />
 
             <label>Wins:</label>
@@ -71,6 +76,8 @@ const TeamForm = () => {
                 type="number"
                 onChange={(e) => setWins(e.target.value)}
                 value={wins}
+                className={emptyFields.includes('Wins')? 'error' : ''}
+
             />
 
             <label>Draws:</label>
@@ -78,6 +85,7 @@ const TeamForm = () => {
                 type="number"
                 onChange={(e) => setDraw(e.target.value)}
                 value={draw}
+                className={emptyFields.includes('Draws')? 'error' : ''}
             />
 
             <label>Losses:</label>
@@ -85,6 +93,7 @@ const TeamForm = () => {
                 type="number"
                 onChange={(e) => setLoss(e.target.value)}
                 value={loss}
+                className={emptyFields.includes('Losses')? 'error' : ''}
             />
 
             <label>Goals For:</label>
@@ -92,6 +101,7 @@ const TeamForm = () => {
                 type="number"
                 onChange={(e) => setGoalsFor(e.target.value)}
                 value={goalsFor}
+                className={emptyFields.includes('Goals For')? 'error' : ''}
             />
 
             <label>Goals Against:</label>
@@ -99,6 +109,7 @@ const TeamForm = () => {
                 type="number"
                 onChange={(e) => setGoalsAgainst(e.target.value)}
                 value={goalsAgainst}
+                className={emptyFields.includes('Goals Against')? 'error' : ''}
             />
 
             <label>Points:</label>
@@ -106,6 +117,7 @@ const TeamForm = () => {
                 type="number"
                 onChange={(e) => setPoints(e.target.value)}
                 value={points}
+                className={emptyFields.includes('Points')? 'error' : ''}
             />
 
             <label>Year:</label>
@@ -113,8 +125,8 @@ const TeamForm = () => {
                 type="number"
                 onChange={(e) => setYear(e.target.value)}
                 value={year}
+                className={emptyFields.includes('Year')? 'error' : ''}
             />
-
             <button>Add Team</button>
             {error &&<div className="error">{error}</div>}
         </form>
