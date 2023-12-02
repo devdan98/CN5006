@@ -12,6 +12,10 @@ export const TeamsReducer = (state, action) => {
             return{
                 footballTeams: [action.payload, ...state.footballTeams]
             }
+        case 'DELETE_TEAMS' :
+                return{
+                    footballTeams: state.footballTeams.filter((t)=> t._id !== action.payload._id)
+            }
         default :
         return state
     }
