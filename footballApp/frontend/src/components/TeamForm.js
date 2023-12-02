@@ -4,7 +4,7 @@ const TeamForm = () => {
     const [team, setTeam] = useState('')
     const [gamesPlayed, setGamesPlayed] = useState('')
     const [wins, setWins] = useState('')
-    const [draws, setDraws] = useState('')
+    const [draw, setDraw] = useState('')
     const [loss, setLoss] = useState('')
     const [goalsFor, setGoalsFor] = useState('')
     const [goalsAgainst, setGoalsAgainst] = useState('')
@@ -15,25 +15,25 @@ const TeamForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const footballTeam = { team, gamesPlayed, wins, draws, loss, goalsFor, goalsAgainst, points, year }
+        const footballTeam = { team, gamesPlayed, wins, draw, loss, goalsFor, goalsAgainst, points, year }
 
-        const res = await fetch('/teams', {
+        const response = await fetch('/teams', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(footballTeam)
         })
-        const json = await res.json()
+        const json = await response.json()
 
-        if (!res.ok) {
+        if (!response.ok) {
             setError(json.error)
         }
-        if (res.ok) {
+        if (response.ok) {
             setTeam('')
             setGamesPlayed('')
             setWins('')
-            setDraws('')
+            setDraw('')
             setLoss('')
             setGoalsFor('')
             setGoalsAgainst('')
@@ -72,8 +72,8 @@ const TeamForm = () => {
             <label>Draws:</label>
             <input 
                 type="number"
-                onChange={(e) => setDraws(e.target.value)}
-                value={draws}
+                onChange={(e) => setDraw(e.target.value)}
+                value={draw}
             />
 
             <label>Losses:</label>
@@ -112,6 +112,7 @@ const TeamForm = () => {
             />
 
             <button>Add Team</button>
+            {error &&<div className="error">{error}</div>}
         </form>
 
     )
