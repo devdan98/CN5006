@@ -1,6 +1,9 @@
 import { useState } from "react"
+import { useTeamsContext } from '../hooks/useTeamsContext';
 
 const TeamForm = () => {
+    const {dispatch} = useTeamsContext()
+    
     const [team, setTeam] = useState('')
     const [gamesPlayed, setGamesPlayed] = useState('')
     const [wins, setWins] = useState('')
@@ -41,6 +44,7 @@ const TeamForm = () => {
             setYear('')
             setError(null)
             console.log('New team added', json)
+            dispatch({type:'CREATE_TEAMS', payload:json})
         }
     }
     

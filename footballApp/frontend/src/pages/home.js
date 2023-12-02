@@ -1,24 +1,24 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
+import { useTeamsContext } from '../hooks/useTeamsContext'
 
 // components
 import TeamDetails from "../components/TeamDetails"
 import TeamForm from "../components/TeamForm"
 
 const Home = () => {
-    const [footballTeams, setFootballTeams] = useState(null)
-
+    const { footballTeams, dispatch } = useTeamsContext()
+    
     useEffect(() => {
         const fetchTeams = async () => {
-            const res = await fetch('/teams')
-            const json = await res.json()
+            const response = await fetch('/teams')
+            const json = await response.json()
 
-            if (res.ok) {
-                setFootballTeams(json)
+            if (response.ok) {
+               dispatch({type:'SET_TEAMS', payload: json})
             }
         }
-
         fetchTeams()
-    }, [])
+    }, [dispatch])
 
     return (
         <div className="home">
