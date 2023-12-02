@@ -3,7 +3,7 @@
 
 /* layout */
 :root {
-  --primary: #1aac83;
+  --primary: #1aac4b;
   --error: #e7195a;
 }
 body {
@@ -38,7 +38,7 @@ header a {
   grid-template-columns: 3fr 1fr;
   gap: 100px;
 }
-.workout-details {
+.teams-details {
   background: #fff;
   border-radius: 4px;
   margin: 20px auto;
@@ -46,17 +46,17 @@ header a {
   position: relative;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
 }
-.workout-details h4 {
+.teams-details h4 {
   margin: 0 0 10px 0;
   font-size: 1.2em;
   color: var(--primary);
 }
-.workout-details p {
+.teams-details p {
   margin: 0;
   font-size: 0.9em;
   color: #555;
 }
-.workout-details span {
+.teams-details span {
   position: absolute;
   top: 20px;
   right: 20px;

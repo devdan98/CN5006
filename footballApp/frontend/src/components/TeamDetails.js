@@ -1,15 +1,15 @@
-const TeamDetails = ({teams}) =>{
+const TeamDetails = ({ team }) => {
     return(
         <div className="teams-details">
-            <h4>{teams.team}</h4>
-            <p><strong>Games Played: </strong>{teams.gamesPlayed}</p>
-            <p><strong>Wins: </strong>{teams.wins}</p>
-            <p><strong>Draws: </strong>{teams.draw}</p>
-            <p><strong>Losses: </strong>{teams.loss}</p>
-            <p><strong>Goals For: </strong>{teams.goalsFor}</p>
-            <p><strong>Goals Against: </strong>{teams.goalsAgainst}</p>
-            <p><strong>Points: </strong>{teams.points}</p>
-            <p><strong>Year: </strong>{teams.year}</p>
+            <h4>{team.team}</h4>
+            <p><strong>Games Played: </strong>{team.gamesPlayed}</p>
+            <p><strong>Wins: </strong>{team.wins}</p>
+            <p><strong>Draws: </strong>{team.draw}</p>
+            <p><strong>Losses: </strong>{team.loss}</p>
+            <p><strong>Goals For: </strong>{team.goalsFor}</p>
+            <p><strong>Goals Against: </strong>{team.goalsAgainst}</p>
+            <p><strong>Points: </strong>{team.points}</p>
+            <p><strong>Year: </strong>{team.year}</p>
         </div>
     )
 }
