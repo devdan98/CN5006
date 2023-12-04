@@ -11,11 +11,11 @@ const Home = () => {
     useEffect(() => {
         const fetchTeams = async () => {
             const response = await fetch('/teams')
-            const json = await response.json()
 
             if (response.ok) {
-               dispatch({type:'SET_TEAMS', payload: json})
-            }
+                const data = await response.json()
+                dispatch({ type: 'SET_TEAMS', payload: data })
+            }  
         }
         fetchTeams()
     }, [dispatch])

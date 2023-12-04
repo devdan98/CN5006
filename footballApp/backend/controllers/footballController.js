@@ -44,36 +44,40 @@ const createFootballTeam = async (req, res) => {
       emptyFields.push('wins')
     }
     if (!draw) {
-        emptyFields.push('draw')
+      emptyFields.push('draw')
       }
     if (!loss) {
-        emptyFields.push('loss')
+      emptyFields.push('loss')
       }
-      if (!goalsFor) {
-        emptyFields.push('goalsFor')
+    if (!goalsFor) {
+      emptyFields.push('goalsFor')
       }
-      if (!goalsAgainst) {
-        emptyFields.push('goalsAgainst')
+    if (!goalsAgainst) {
+      emptyFields.push('goalsAgainst')
       }
-      if (!points) {
-        emptyFields.push('points')
+    if (!points) {
+      emptyFields.push('points')
       }
-      if (!year) {
-        emptyFields.push('year')
+    if (!year) {
+      emptyFields.push('year')
       }
     if (emptyFields.length > 0) {
       return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
     }
+    
 
     // Adding the entry to database
+    const newFootballTeam = new footballTeamModel({
+        team, gamesPlayed, wins, draw, loss, goalsFor, goalsAgainst, points, year
+    });
+
     try {
-        const football = await footballTeamModel.create({
-            team, gamesPlayed, wins, draw, loss, goalsFor, goalsAgainst, points, year
-        })
-        res.status(200).json(football);
+        await newFootballTeam.save();
+        res.status(200).json(newFootballTeam);
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.status(400).json({error: error.message});
     }
+
 }
 
 // DELETE a team
@@ -93,24 +97,44 @@ const deleteFootballTeam = async (req, res) => {
     res.status(200).json(footballTeam);
 }
 
-// UPDATE a team
+// UPDATE a team using PATCH
 const updateFootballTeam = async (req, res) => {
-    const { id } = req.params;
+  const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'Team does not exist'})
-    }
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).json({ error: 'Team does not exist' });
+  }
 
-    const footballTeam = await footballTeamModel.findOneAndUpdate({_id: id}, {
-        ...req.body
-    })
+  // Extract only the fields you want to update
+  const {
+      team, gamesPlayed, wins, draw, loss, goalsFor, goalsAgainst, points, year
+  } = req.body;
 
-    if (!footballTeam) {
-        return res.status(404).json({error: 'Team does not exist'})
-    }
+  // Check if any fields are provided for update
+  if (!team && !gamesPlayed && !wins && !draw && !loss && !goalsFor && !goalsAgainst && !points && !year) {
+      return res.status(400).json({ error: 'No fields provided for update' });
+  }
 
-    res.status(200).json(footballTeam);
-}
+  const updatedFields = {
+      team, gamesPlayed, wins, draw, loss, goalsFor, goalsAgainst, points, year
+  };
+
+  // Remove undefined values to avoid updating with undefined
+  Object.keys(updatedFields).forEach((key) => updatedFields[key] === undefined && delete updatedFields[key]);
+
+  const footballTeam = await footballTeamModel.findOneAndUpdate(
+      { _id: id },
+      { $set: updatedFields }, // Use $set to update only specified fields
+      { new: true }
+  );
+
+  if (!footballTeam) {
+      return res.status(404).json({ error: 'Team does not exist' });
+  }
+
+  res.status(200).json(footballTeam);
+};
+
 
 
 module.exports = {

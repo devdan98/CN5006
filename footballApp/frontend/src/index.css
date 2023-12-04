@@ -48,15 +48,15 @@ header a {
 }
 .teams-details h4 {
   margin: 0 0 10px 0;
-  font-size: 1.2em;
+  font-size: 1.5em;
   color: var(--primary);
 }
 .teams-details p {
   margin: 0;
-  font-size: 0.9em;
+  font-size: 1.1em;
   color: #555;
 }
-.teams-details span {
+.teams-details span.material-symbols-outlined {
   position: absolute;
   top: 20px;
   right: 20px;
@@ -67,10 +67,15 @@ header a {
   color: #333;
 }
 
-/* new workout form */
+.teams-details span.material-symbols-outlined.edit {
+  margin-right: 50px;
+}
+
+/* new team form */
 label, input {
   display: block;
 }
+
 input {
   padding: 10px;
   margin-top: 10px;
@@ -80,6 +85,7 @@ input {
   border-radius: 4px;
   box-sizing: border-box;
 }
+
 form button {
   background: var(--primary);
   border: 0;
@@ -89,6 +95,7 @@ form button {
   border-radius: 4px;
   cursor: pointer;
 }
+
 div.error {
   padding: 10px;
   background: #ffefef;
@@ -97,11 +104,7 @@ div.error {
   border-radius: 4px;
   margin: 20px 0;
 }
+
 input.error {
-  padding: 10px;
-  background: #ffefef;
   border: 1px solid var(--error);
-  color: var(--error);
-  border-radius: 4px;
-  margin: 20px 0;
 }
