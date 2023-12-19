@@ -1,12 +1,25 @@
 const footballTeamModel = require('../models/footballModel');
 const mongoose = require('mongoose');
 
-// GET all teams
+// GET all teams with optional year and wins filter
 const getFootballTeams = async (req, res) => {
-    const footballTeams = await footballTeamModel.find({}).sort({team: -1});
+  const { year, minWins } = req.query;
+  let query = {};
 
-    res.status(200).json(footballTeams);
+  if (year) {
+      query.year = parseInt(year);
+  }
+
+  if (minWins) {
+      query.wins = { $gt: parseInt(minWins) };
+  }
+
+  const footballTeams = await footballTeamModel.find(query).sort({ team: -1 });
+
+  res.status(200).json(footballTeams);
 }
+
+
 
 
 // GET a single team
@@ -25,6 +38,29 @@ const getFootballTeam = async (req, res) => {
 
     res.status(200).json(footballTeamById);
 }
+
+// GET average goals for a given year
+const getAverageGoalsForYear = async (req, res) => {
+  const { year } = req.params;
+
+  const result = await footballTeamModel.aggregate([
+      { $match: { year: parseInt(year) } },
+      {
+          $group: {
+              _id: null,
+              averageGoalsFor: { $avg: "$goalsFor" },
+              averageGoalsAgainst: { $avg: "$goalsAgainst" }
+          }
+      }
+  ]);
+
+  if (result.length > 0) {
+      res.status(200).json(result[0]);
+  } else {
+      res.status(404).json({ error: 'No data found for the given year' });
+  }
+};
+
 
 // POST new team
 const createFootballTeam = async (req, res) => {
@@ -142,5 +178,6 @@ module.exports = {
     getFootballTeams,
     getFootballTeam,
     deleteFootballTeam,
-    updateFootballTeam
+    updateFootballTeam,
+    getAverageGoalsForYear
 }
