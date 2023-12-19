@@ -61,6 +61,29 @@ const getAverageGoalsForYear = async (req, res) => {
   }
 };
 
+// GET total games played, draws, and wins for a given year
+const getTotalStatsForYear = async (req, res) => {
+  const { year } = req.params;
+
+  const totalStats = await footballTeamModel.aggregate([
+      { $match: { year: parseInt(year) } },
+      {
+          $group: {
+              _id: null,
+              totalGamesPlayed: { $sum: "$gamesPlayed" },
+              totalWins: { $sum: "$wins" },
+              totalDraws: { $sum: "$draw" }
+          }
+      }
+  ]);
+
+  if (totalStats.length > 0) {
+      res.status(200).json(totalStats[0]);
+  } else {
+      res.status(404).json({ error: 'No data found for the given year' });
+  }
+};
+
 
 // POST new team
 const createFootballTeam = async (req, res) => {
@@ -179,5 +202,6 @@ module.exports = {
     getFootballTeam,
     deleteFootballTeam,
     updateFootballTeam,
-    getAverageGoalsForYear
+    getAverageGoalsForYear,
+    getTotalStatsForYear
 }

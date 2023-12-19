@@ -8,6 +8,7 @@ const Home = () => {
     const [yearFilter, setYearFilter] = useState('');
     const [minWinsFilter, setMinWinsFilter] = useState('');
     const [averageGoals, setAverageGoals] = useState(null);
+    const [totalStats, setTotalStats] = useState(null);
 
     const fetchTeams = async () => {
         const response = await fetch(`/teams?year=${yearFilter}&minWins=${minWinsFilter}`);
@@ -26,6 +27,17 @@ const Home = () => {
             setAverageGoals(data);
         } else {
             setAverageGoals(null);
+        }
+    };
+
+    const fetchTotalStats = async () => {
+        const response = await fetch(`/teams/total-stats/${yearFilter}`);
+
+        if (response.ok) {
+            const data = await response.json();
+            setTotalStats(data);
+        } else {
+            setTotalStats(null);
         }
     };
 
@@ -57,24 +69,23 @@ const Home = () => {
                     />
                 </div>
                 <div className="average-goals">
-                <div className="filter">
-                    <label>Calculate Average Goals for Year:</label>
-                    <input
-                        type="number"
-                        value={yearFilter}
-                        onChange={(e) => setYearFilter(e.target.value)}
-                    />
-                    <button onClick={fetchAverageGoals}>Calculate</button>
-                </div>
+                    <button onClick={fetchAverageGoals}>Year Avg Goals</button>
+                    <button onClick={fetchTotalStats}>Year Stats</button>
                 {averageGoals && (
                     <div className="average-goals-result">
                         <p>Average Goals For: {averageGoals.averageGoalsFor}</p>
                         <p>Average Goals Against: {averageGoals.averageGoalsAgainst}</p>
                     </div>
                 )}
+                {totalStats && (
+                <div className="total-stats-result">
+                    <p>Total Games Played: {totalStats.totalGamesPlayed}</p>
+                    <p>Total Wins: {totalStats.totalWins}</p>
+                    <p>Total Draws: {totalStats.totalDraws}</p>
+                </div>
+            )}
             </div>
 
-                {/* Display teams as before */}
                 {footballTeams && footballTeams.map(team => (
                     <TeamDetails key={team._id} team={team} />
                 ))}

@@ -5,7 +5,8 @@ const {
     getFootballTeam,
     deleteFootballTeam,
     updateFootballTeam,
-    getAverageGoalsForYear
+    getAverageGoalsForYear,
+    getTotalStatsForYear
 } = require('../controllers/footballController')
 
 const router = express.Router();
@@ -15,6 +16,9 @@ router.get('/', getFootballTeams);
 
 // GET average goals for a given year
 router.get('/average-goals/:year', getAverageGoalsForYear);
+
+// GET total games played, draws, and wins for a given year
+router.get('/total-stats/:year', getTotalStatsForYear);
 
 // GET a single team with their scores
 router.get('/:id', getFootballTeam);
