@@ -108,3 +108,21 @@ div.error {
 input.error {
   border: 1px solid var(--error);
 }
+
+.filter {
+  font-weight: 900;
+}
+
+button {
+  background: var(--primary);
+  border: 0;
+  color: #fff;
+  padding: 10px;
+  font-family: "Poppins";
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.padme {
+  margin-left: 15px;
+}

@@ -43,10 +43,6 @@ const Home = () => {
 
     useEffect(() => {
         fetchTeams();
-        // Fetch average goals when the year changes
-        if (yearFilter) {
-            fetchAverageGoals();
-        }
     }, [yearFilter, minWinsFilter, dispatch]);
 
     return (
@@ -70,7 +66,7 @@ const Home = () => {
                 </div>
                 <div className="average-goals">
                     <button onClick={fetchAverageGoals}>Year Avg Goals</button>
-                    <button onClick={fetchTotalStats}>Year Stats</button>
+                    <button className="padme" onClick={fetchTotalStats}>Year Stats</button>
                 {averageGoals && (
                     <div className="average-goals-result">
                         <p>Average Goals For: {averageGoals.averageGoalsFor}</p>

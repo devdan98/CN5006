@@ -15,7 +15,6 @@ app.use((req, res, next) => {
     console.log(req.path, req.method);
     next();
 });
-//New hello
 
 // Routes - To see all the teams visit localhost:5000/teams
 app.use('/teams', footballRoutes);
@@ -31,4 +30,3 @@ mongoose.connect(process.env.MONGO_URI)
         console.log(error)
     });
 
-// Listen for requests
