@@ -11,7 +11,7 @@ const getFootballTeams = async (req, res) => {
   }
 
   if (minWins) {
-      query.wins = { $gt: parseInt(minWins) };
+      query.wins = { $gte: parseInt(minWins) };
   }
 
   const footballTeams = await footballTeamModel.find(query).sort({ team: -1 });
